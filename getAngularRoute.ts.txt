@@ -1,0 +1,17 @@
+
+constructor(
+    private route: ActivatedRoute
+	  ) {
+}
+
+getResolvedUrl(route: ActivatedRouteSnapshot): string {
+    let url = route.pathFromRoot.map((v) => v.url.map((segment) => segment.toString()).join('/')).join('/');
+    const queryParam = route.queryParamMap;
+    if (queryParam.keys.length > 0) {
+      url += '?' + queryParam.keys.map(key => queryParam.getAll(key).map(value => key + '=' + value).join('&')).join('&');
+    }
+    return url;
+ }
+
+var urlData = this.getResolvedUrl(this.route.snapshot);
+
